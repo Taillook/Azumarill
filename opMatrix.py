@@ -1,9 +1,10 @@
-class OpMatrix:
-	def __init__(self):
-		self.mtr=[]
+class OpMatrix(object):
+	def __init__(self,values):
+		self.mtr=values
 
-	def append(self,lst):
-		self.mtr.append(lst)
+	def __add__(self,value):
+		print "__add__"
+		return OpMatrix([[self.mtr[j][i]+value.mtr[j][i] for i in range(len(self.mtr))] for j in range(len(self.mtr))])
 
 	def __str__(self):
 		smtr = ""
@@ -23,8 +24,10 @@ def findDet3(a,b,c,d,e,f,g,h,i):
 	print "|"+str(g)+" "+str(h)+" "+str(i)+"|\n"
 
 if __name__ == '__main__':
-	mtr = OpMatrix()
+	mtr = []
 	mtr.append(map(int,raw_input().split()))
 	mtr.append(map(int,raw_input().split()))
-	print mtr
-	finDet2(1,2,3,4)
+	mtr = OpMatrix(mtr)
+	mtr2 = mtr
+	print mtr+mtr2
+	#finDet2(1,2,3,4)
