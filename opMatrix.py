@@ -13,7 +13,11 @@ class OpMatrix(object):
 		return OpMatrix([[self.mtr[j][i]-value.mtr[j][i] for i in range(len(self.mtr))] for j in range(len(self.mtr))])
 
 	def __str__(self):
-		#オブジェクトを参照されたとき用の変数
+		#オブジェクトを参照された際に文字列化した行列を返す
+		return self.strMatrix()
+
+	def strMatrix(self):
+		#行列を文字列として表現するための変数
 		smtr = ""
 		#smtr内の文字列生成
 		for i in xrange(len(self.mtr)):
@@ -27,10 +31,17 @@ class OpMatrix(object):
 			smtr+=("|"+" ".join(munStr)+"|"+isEnter)
 		return smtr
 
-def finDet2(a,b,c,d):
-	print "|"+str(a)+" "+str(b)+"|"
-	print "|"+str(c)+" "+str(d)+"|\n"
-	print "det=("+str(a)+"x"+str(d)+")-"+"("+str(b)+"x"+str(c)+")\n   ="+str((a*d)-(b*c))
+	def printMatrix(self):
+		print self.strMatrix()
+
+	def findDet(self):
+		self.printMatrix()
+		if len(self.mtr[0])==2:
+			det = (self.mtr[0][0]*self.mtr[1][1])-(self.mtr[0][1]*self.mtr[1][0])
+			print "det=("+str(self.mtr[0][0])+"x"+str(self.mtr[1][1])+")-"+\
+			"("+str(self.mtr[0][1])+"x"+str(self.mtr[1][0])+")"
+			print "   ="+str(det)
+			return det
 
 def findDet3(a,b,c,d,e,f,g,h,i):
 	print "|"+str(a)+" "+str(b)+" "+str(c)+"|"
@@ -41,8 +52,15 @@ if __name__ == '__main__':
 	mtr = []
 	print "Please enter the dimension number of the matrix and matrix."
 	print "ex:\n2\n1 2\n3 4\n"
-	[mtr.append(map(int,raw_input().split())) for i in xrange(input())]
+
+	dimensionNum=input()
+
+	if dimensionNum!=2&dimensionNum!=3:
+			print "Error"
+			exit()
+
+	[mtr.append(map(int,raw_input().split())) for i in xrange(dimensionNum)]
 	mtr = OpMatrix(mtr)
 	mtr2 = mtr
-	print mtr-mtr2
+	print (mtr+mtr2).findDet()
 	#finDet2(1,2,3,4)
