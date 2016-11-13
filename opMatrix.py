@@ -1,3 +1,4 @@
+import math
 class OpMatrix(object):
 	def __init__(self,values):
 		self.mtr=values
@@ -9,8 +10,8 @@ class OpMatrix(object):
 	def __str__(self):
 		smtr = ""
 		for i in xrange(len(self.mtr)):
-			smtr+=("|"+" ".join(map(str,self.mtr[i]))+"|")
-			if i!=len(self.mtr)-1: smtr+="\n"
+			tmp=[("{0:"+str(len(str(max(max(self.mtr)))))+"d}").format(self.mtr[i][j]) for j in range(len(self.mtr[i]))]
+			smtr+=("|"+" ".join(map(str,tmp))+"|"+("\n" if i==len(self.mtr)-1 else "\n"))
 		return smtr
 
 def finDet2(a,b,c,d):
@@ -25,6 +26,7 @@ def findDet3(a,b,c,d,e,f,g,h,i):
 
 if __name__ == '__main__':
 	mtr = []
+	mtr.append(map(int,raw_input().split()))
 	mtr.append(map(int,raw_input().split()))
 	mtr.append(map(int,raw_input().split()))
 	mtr = OpMatrix(mtr)
