@@ -8,6 +8,10 @@ class OpMatrix(object):
 		print "__add__"
 		return OpMatrix([[self.mtr[j][i]+value.mtr[j][i] for i in range(len(self.mtr))] for j in range(len(self.mtr))])
 
+	def __sub__(self,value):
+		print "__sub__"
+		return OpMatrix([[self.mtr[j][i]-value.mtr[j][i] for i in range(len(self.mtr))] for j in range(len(self.mtr))])
+
 	def __str__(self):
 		#オブジェクトを参照されたとき用の変数
 		smtr = ""
@@ -40,5 +44,5 @@ if __name__ == '__main__':
 	[mtr.append(map(int,raw_input().split())) for i in xrange(input())]
 	mtr = OpMatrix(mtr)
 	mtr2 = mtr
-	print mtr+mtr2
+	print mtr-mtr2
 	#finDet2(1,2,3,4)
