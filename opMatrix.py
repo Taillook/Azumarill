@@ -1,3 +1,4 @@
+# coding: utf-8
 import math
 class OpMatrix(object):
 	def __init__(self,values):
@@ -8,10 +9,18 @@ class OpMatrix(object):
 		return OpMatrix([[self.mtr[j][i]+value.mtr[j][i] for i in range(len(self.mtr))] for j in range(len(self.mtr))])
 
 	def __str__(self):
+		#オブジェクトを参照されたとき用の変数
 		smtr = ""
+		#smtr内の文字列生成
 		for i in xrange(len(self.mtr)):
-			tmp=[("{0:"+str(len(str(max(max(self.mtr)))))+"d}").format(self.mtr[i][j]) for j in range(len(self.mtr[i]))]
-			smtr+=("|"+" ".join(map(str,tmp))+"|"+("\n" if i==len(self.mtr)-1 else "\n"))
+			#行列内の最大値を取得し、フォーマット用文字列を生成
+			formatStr="{0:"+str(len(str(max(max(self.mtr)))))+"d}"
+			#行列内の数の桁数が最大の桁数に合うように文字列を生成
+			munStr=[formatStr.format(self.mtr[i][j]) for j in range(len(self.mtr[i]))]
+			#改行の有無を指定
+			isEnter="\n" if i!=len(self.mtr)-1 else ""
+			#smtrに行ごとの文字列を追加
+			smtr+=("|"+" ".join(munStr)+"|"+isEnter)
 		return smtr
 
 def finDet2(a,b,c,d):
@@ -26,9 +35,9 @@ def findDet3(a,b,c,d,e,f,g,h,i):
 
 if __name__ == '__main__':
 	mtr = []
-	mtr.append(map(int,raw_input().split()))
-	mtr.append(map(int,raw_input().split()))
-	mtr.append(map(int,raw_input().split()))
+	print "Please enter the dimension number of the matrix and matrix."
+	print "ex:\n2\n1 2\n3 4\n"
+	[mtr.append(map(int,raw_input().split())) for i in xrange(input())]
 	mtr = OpMatrix(mtr)
 	mtr2 = mtr
 	print mtr+mtr2
