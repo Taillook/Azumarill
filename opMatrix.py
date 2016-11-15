@@ -1,5 +1,6 @@
 # coding: utf-8
 import math
+import sys
 
 
 class OpMatrix(object):
@@ -39,9 +40,14 @@ class OpMatrix(object):
         print self.strMatrix()
 
     def findDet(self):
+
+        lenNumStr = len(str(max(max(self.mtr))))
+
         # 行列内の最大値を取得し、フォーマット用文字列を生成
-        formatStr = "{0:" + str(len(str(max(max(self.mtr))))) + "d}"
+        formatStr = "{0:" + str(lenNumStr) + "d}"
+
         self.printMatrix()
+
         if len(self.mtr[0]) == 2:
             det = (self.mtr[0][0] * self.mtr[1][1]) - \
                 (self.mtr[0][1] * self.mtr[1][0])
@@ -50,19 +56,41 @@ class OpMatrix(object):
                 "   =" + str(det)
             return det
         elif len(self.mtr[0]) == 3:
-            print "+|" + formatStr.format(self.mtr[0][0]) + " x " + formatStr.format(self.mtr[1][1]) + " x " + formatStr.format(self.mtr[2][2]) + "\n" + \
-                "+|" + formatStr.format(self.mtr[0][1]) + " x " + formatStr.format(self.mtr[1][2]) + " x " + formatStr.format(self.mtr[2][0]) + "\n" + \
-                "+|" + formatStr.format(self.mtr[0][2]) + " x " + formatStr.format(self.mtr[1][0]) + " x " + formatStr.format(self.mtr[2][1]) + "\n" + \
-                "-|" + formatStr.format(self.mtr[0][0]) + " x " + formatStr.format(self.mtr[1][2]) + " x " + formatStr.format(self.mtr[2][1]) + "\n" + \
-                "-|" + formatStr.format(self.mtr[0][1]) + " x " + formatStr.format(self.mtr[1][0]) + " x " + formatStr.format(self.mtr[2][2]) + "\n" + \
-                "-|" + formatStr.format(self.mtr[0][2]) + " x " + formatStr.format(
-                    self.mtr[1][1]) + " x " + formatStr.format(self.mtr[2][0])
+            sp1 = self.mtr[0][0] * self.mtr[1][1] * self.mtr[2][2]
+            sp2 = self.mtr[0][1] * self.mtr[1][2] * self.mtr[2][0]
+            sp3 = self.mtr[0][2] * self.mtr[1][0] * self.mtr[2][1]
+            sm1 = self.mtr[0][0] * self.mtr[1][2] * self.mtr[2][1]
+            sm2 = self.mtr[0][1] * self.mtr[1][0] * self.mtr[2][2]
+            sm3 = self.mtr[0][2] * self.mtr[1][1] * self.mtr[2][0]
 
+            det = sp1 + sp2 + sp3 - sm1 - sm2 - sm3
 
-def findDet3(a, b, c, d, e, f, g, h, i):
-    print "|" + str(a) + " " + str(b) + " " + str(c) + "|"
-    print "|" + str(d) + " " + str(e) + " " + str(f) + "|"
-    print "|" + str(g) + " " + str(h) + " " + str(i) + "|\n"
+            lenUnderBar = lenNumStr * 9 + 2 + len(str(det))
+
+            print "+|" + formatStr.format(self.mtr[0][0]) + " x " + formatStr.format(self.mtr[1][1]) + " x " + formatStr.format(self.mtr[2][2]) \
+                  + " = " + str(sp1) + "\n" \
+                  + "+|" + formatStr.format(self.mtr[0][1]) + " x " + formatStr.format(self.mtr[1][2]) + " x " + formatStr.format(self.mtr[2][0]) \
+                  + " = " + str(sp2) + "\n" \
+                  + "+|" + formatStr.format(self.mtr[0][2]) + " x " + formatStr.format(self.mtr[1][0]) + " x " + formatStr.format(self.mtr[2][1]) \
+                  + " = " + str(sp3) + "\n" \
+                  + "-|" + formatStr.format(self.mtr[0][0]) + " x " + formatStr.format(self.mtr[1][2]) + " x " + formatStr.format(self.mtr[2][1]) \
+                  + " = " + str(sm1) + "\n" \
+                  + "-|" + formatStr.format(self.mtr[0][1]) + " x " + formatStr.format(self.mtr[1][0]) + " x " + formatStr.format(self.mtr[2][2]) \
+                  + " = " + str(sm2) + "\n" \
+                  + "-|" + formatStr.format(self.mtr[0][2]) + " x " + formatStr.format(self.mtr[1][1]) + " x " + formatStr.format(self.mtr[2][0]) \
+                  + " = " + str(sm3)
+
+            for i in xrange(lenUnderBar):
+                if i == 0:
+                    sys.stdout.write(" ")
+                elif i == lenUnderBar - 1:
+                    print ""
+                else:
+                    sys.stdout.write("-")
+
+            print " =" + str(det)
+
+            return det
 
 if __name__ == '__main__':
     mtr = []
@@ -78,5 +106,5 @@ if __name__ == '__main__':
     [mtr.append(map(int, raw_input().split())) for i in xrange(dimensionNum)]
     mtr = OpMatrix(mtr)
     mtr2 = mtr
-    print (mtr + mtr2).findDet()
+    print mtr.findDet()
     # finDet2(1,2,3,4)
