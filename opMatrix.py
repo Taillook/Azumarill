@@ -97,7 +97,13 @@ if __name__ == '__main__':
     print "Please enter the dimension number of the matrix and matrix."
     print "ex:\n2\n1 2\n3 4\n"
 
-    dimensionNum = input()
+    dimensionNum = raw_input()
+
+    if dimensionNum.isdigit():
+        dimensionNum = int(dimensionNum)
+    else:
+        print "Error"
+        exit()
 
     if dimensionNum != 2 and dimensionNum != 3:
         print "Error"
