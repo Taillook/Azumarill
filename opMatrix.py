@@ -19,6 +19,9 @@ class OpMatrix(object):
         # オブジェクトを参照された際に文字列化した行列を返す
         return self.strMatrix()
 
+    def copy(self):
+        return OpMatrix(self.mtr)
+
     def strMatrix(self):
         # 行列を文字列として表現するための変数
         smtr = ""
@@ -38,7 +41,7 @@ class OpMatrix(object):
         print self.strMatrix()
 
     def findDet(self):
-
+        #文字列化した数値の長さ
         lenNumStr = len(str(max(max(self.mtr))))
 
         # 行列内の最大値を取得し、フォーマット用文字列を生成
@@ -107,5 +110,6 @@ if __name__ == '__main__':
         exit()
 
     mtr = OpMatrix([[int(j) for j in raw_input().split()] for i in xrange(dimensionNum)])
-    mtr2 = mtr
+    mtr2 = mtr.copy()
+    print mtr is mtr2
     print (mtr + mtr2).findDet()
