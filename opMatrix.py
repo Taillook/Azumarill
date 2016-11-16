@@ -1,5 +1,4 @@
 # coding: utf-8
-import math
 import sys
 
 
@@ -28,8 +27,7 @@ class OpMatrix(object):
             # 行列内の最大値を取得し、フォーマット用文字列を生成
             formatStr = "{0:" + str(len(str(max(max(self.mtr))))) + "d}"
             # 行列内の数の桁数が最大の桁数に合うように文字列を生成
-            munStr = [formatStr.format(self.mtr[i][j])
-                      for j in range(len(self.mtr[i]))]
+            munStr = [formatStr.format(self.mtr[i][j]) for j in range(len(self.mtr[i]))]
             # 改行の有無を指定
             isEnter = "\n" if i != len(self.mtr) - 1 else ""
             # smtrに行ごとの文字列を追加
@@ -93,7 +91,6 @@ class OpMatrix(object):
             return det
 
 if __name__ == '__main__':
-    mtr = []
     print "Please enter the dimension number of the matrix and matrix."
     print "ex:\n2\n1 2\n3 4\n"
 
@@ -109,8 +106,6 @@ if __name__ == '__main__':
         print "Error"
         exit()
 
-    [mtr.append(map(int, raw_input().split())) for i in xrange(dimensionNum)]
-    mtr = OpMatrix(mtr)
+    mtr = OpMatrix([[int(j) for j in raw_input().split()] for i in xrange(dimensionNum)])
     mtr2 = mtr
-    print mtr.findDet()
-    # finDet2(1,2,3,4)
+    print (mtr + mtr2).findDet()
