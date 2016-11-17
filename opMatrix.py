@@ -99,7 +99,20 @@ class OpMatrix(object):
 
             return det
 
+class variable(object):
+    def __init__(self, variable):
+          self.variable = variable
+
+    def __str__(self):
+        # オブジェクトを返す
+        return self.variable
+
+class variables(object):
+    def __new__(self, variables):
+          return [variable(i) for i in variables.split()]
+
 if __name__ == '__main__':
+    """
     print("Please enter the dimension number of the matrix and matrix.")
     print("ex:\n2\n1 2\n3 4\n")
 
@@ -122,3 +135,12 @@ if __name__ == '__main__':
     print(type(mtr))
     print(type(mtr2))
     print((mtr + mtr2).findDet())
+    """
+
+    a, b = variables(input())
+
+    print(a)
+    print(b)
+
+    print(type(a))
+    print(type(b))
