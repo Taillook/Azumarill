@@ -1,7 +1,7 @@
 # coding: utf-8
 
 
-class OpMatrix(object):
+class OpMatrix:
 
     def __init__(self, value):
         self.mtr = value
@@ -99,17 +99,26 @@ class OpMatrix(object):
 
             return det
 
-class variable(object):
+class Variable(str):
     def __init__(self, variable):
           self.variable = variable
+
+    def __add__(self, value):
+        print("__add__")
+        a = self.variable
+        b = value
+        c = a + "+" + b
+        if a[len(a) - 1] == b[len(b) - 1]:
+            c = str(int(a[:len(a) - 1]) + int(b[:len(b) - 1])) + a[len(a) - 1]
+        return Variable(c)
 
     def __str__(self):
         # オブジェクトを返す
         return self.variable
 
-class variables(object):
+class Variables:
     def __new__(self, variables):
-          return [variable(i) for i in variables.split()]
+          return [Variable(i) for i in variables.split()]
 
 if __name__ == '__main__':
     """
@@ -137,9 +146,9 @@ if __name__ == '__main__':
     print((mtr + mtr2).findDet())
     """
 
-    a, b = variables(input())
+    a, b = Variables(input())
 
-    print(a)
+    print(a + b)
     print(b)
 
     print(type(a))
